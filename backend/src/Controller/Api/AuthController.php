@@ -38,7 +38,11 @@ public function register(
 
     $user = new User();
     $user->setEmail($data['email']);
-    $user->setRoles(['ROLE_USER']);
+    $roles = ['ROLE_USER'];
+    if ($data['email'] === 'admin@rentcar.local') {
+        $roles = ['ROLE_ADMIN'];
+    }
+    $user->setRoles($roles);
     $user->setPassword(
         $hasher->hashPassword($user, $data['password'])
     );

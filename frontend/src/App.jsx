@@ -5,6 +5,7 @@ import { apiGet } from "./api"
 import CarsList from './pages/CarsList.jsx'
 import ReservationsPage from './pages/ReservationsPage.jsx'
 import LoginPage from './pages/LoginPage.jsx'
+import AdminReservationsPage from './pages/AdminReservationsPage.jsx'
 
 function App() {
   const [user, setUser] = useState(null)
@@ -27,6 +28,8 @@ function App() {
 
   if (loading) return <p>Ładowanie...</p>
 
+  const isAdmin = user?.roles?.includes("ROLE_ADMIN")
+
   return (
     <div className='app' style={{ maxWidth: 900, margin: '0 auto', padding: '1rem' }}>
       <header className='card' style={{ marginBottom: '1rem' }}>
@@ -36,6 +39,11 @@ function App() {
           <nav>
             <Link to="/">Samochody</Link> |{" "}
             <Link to="/reservations">Moje rezerwacje</Link> |{" "}
+            {isAdmin && (
+              <>
+                <Link to="/admin/reservations">Panel admina</Link> |{" "}
+              </>
+            )}
             <button
               onClick={() => {
                 fetch("http://localhost:8000/api/logout", {
@@ -56,6 +64,9 @@ function App() {
         <Routes>
           <Route path="/" element={<CarsList />} />
           <Route path="/reservations" element={<ReservationsPage />} />
+          {isAdmin && (
+            <Route path="/admin/reservations" element={<AdminReservationsPage />} />
+          )}
         </Routes>
       )}
     </div>
