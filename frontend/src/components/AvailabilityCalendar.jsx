@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { apiGet } from "../api";
+import { apiGet } from "../api/client";
 
 export default function AvailabilityCalendar({ carId, onSelect }) {
   const [busy, setBusy] = useState([]);

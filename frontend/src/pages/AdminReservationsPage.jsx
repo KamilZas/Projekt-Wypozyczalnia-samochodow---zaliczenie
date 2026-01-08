@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { apiDelete, apiGet } from "../api";
+import { apiDelete, apiGet } from "../api/client";
 
 export default function AdminReservationsPage() {
   const [reservations, setReservations] = useState([]);

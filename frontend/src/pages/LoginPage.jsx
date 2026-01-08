@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { apiPost } from "../api";
+import { useNavigate } from "react-router-dom";
+import { apiPost } from "../api/client";
 
 export default function LoginPage({ onLogin }) {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [mode, setMode] = useState("login"); // login | register
@@ -23,6 +25,7 @@ export default function LoginPage({ onLogin }) {
     if (mode === "login") {
       await apiPost("/login", { email, password });
       onLogin();
+      navigate("/", { replace: true });
     } else {
       await apiPost("/register", { email, password });
       setSuccess("Konto utworzone — możesz się zalogować");

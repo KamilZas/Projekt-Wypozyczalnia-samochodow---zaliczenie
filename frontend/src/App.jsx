@@ -1,6 +1,6 @@
-import { Routes, Route, Link } from 'react-router-dom'
+import { Routes, Route, Link, Navigate } from 'react-router-dom'
 import { useEffect, useState } from "react"
-import { apiGet } from "./api"
+import { apiGet } from "./api/client"
 
 import CarsList from './pages/CarsList.jsx'
 import ReservationsPage from './pages/ReservationsPage.jsx'
@@ -48,7 +48,7 @@ function App() {
             <button
               className="btn-ghost"
               onClick={() => {
-                fetch("http://localhost:8000/api/logout", {
+                fetch("/api/logout", {
                   method: "POST",
                   credentials: "include",
                 }).then(() => window.location.reload())
@@ -62,11 +62,11 @@ function App() {
 
       <Routes>
         <Route path="/" element={<CarsList user={user} />} />
-        <Route path="/login" element={<LoginPage onLogin={loadUser} />} />
-        <Route path="/reservations" element={user ? <ReservationsPage /> : <LoginPage onLogin={loadUser} />} />
+        <Route path="/login" element={user ? <Navigate to="/" replace /> : <LoginPage onLogin={loadUser} />} />
+        <Route path="/reservations" element={user ? <ReservationsPage /> : <Navigate to="/login" replace />} />
         <Route
           path="/admin/reservations"
-          element={user && isAdmin ? <AdminReservationsPage /> : <LoginPage onLogin={loadUser} />}
+          element={user && isAdmin ? <AdminReservationsPage /> : <Navigate to="/login" replace />}
         />
       </Routes>
     </div>

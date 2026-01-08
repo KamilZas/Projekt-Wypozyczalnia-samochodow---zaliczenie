@@ -1,26 +1,49 @@
 import { useEffect, useState } from "react";
-import { apiGet } from "../api";
+import { apiGet } from "../api/client";
 
 export default function ReservationsPage() {
   const [reservations, setReservations] = useState([]);
   const [error, setError] = useState("");
   const [selectedDate, setSelectedDate] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   // Na razie na sztywno auto nr 1 — później można to powiązać z wyborem auta
   const selectedCarId = 1;
 
   useEffect(() => {
-    apiGet("/reservations/me")
-      .then(data => {
-        console.log("REZERWACJE:", data);
-        setReservations(data);
-      })
-      .catch(err => {
-        console.error(err);
-        setError("Nie udało się pobrać rezerwacji");
-      });
+    let active = true;
+
+    const loadReservations = () => {
+      apiGet("/reservations/me")
+        .then(data => {
+          if (!active) return;
+          setReservations(data);
+          setError("");
+        })
+        .catch(err => {
+          console.error(err);
+          if (!active) return;
+          setError("Nie udało się pobrać rezerwacji");
+        })
+        .finally(() => {
+          if (!active) return;
+          setLoading(false);
+        });
+    };
+
+    loadReservations();
+    const interval = setInterval(loadReservations, 15000);
+    const onFocus = () => loadReservations();
+    window.addEventListener("focus", onFocus);
+
+    return () => {
+      active = false;
+      clearInterval(interval);
+      window.removeEventListener("focus", onFocus);
+    };
   }, []);
 
+  if (loading) return <p>Ładowanie...</p>;
   if (error) return <p style={{ color: "red" }}>{error}</p>;
 
   return (
