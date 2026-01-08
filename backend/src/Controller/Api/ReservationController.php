@@ -104,7 +104,9 @@ class ReservationController extends AbstractController
 
         $rows = $em->createQueryBuilder()
             ->select('r.id, r.startDate, r.endDate, r.pickUpLocation, r.dropOffLocation, r.totalPrice, r.status, r.createdAt')
+            ->addSelect('c.id AS carId, c.brand, c.model, c.registrationNumber')
             ->from(Reservation::class, 'r')
+            ->join('r.car', 'c')
             ->where('r.user = :user')
             ->setParameter('user', $user)
             ->orderBy('r.id', 'DESC')

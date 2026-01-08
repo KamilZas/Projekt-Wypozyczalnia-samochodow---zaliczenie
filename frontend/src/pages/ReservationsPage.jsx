@@ -47,30 +47,59 @@ export default function ReservationsPage() {
   if (error) return <p style={{ color: "red" }}>{error}</p>;
 
   return (
-    <div>
-
-
+    <div className="section">
       {selectedDate && (
         <p style={{ marginTop: 10 }}>
           Wybrana data: <b>{selectedDate}</b>
         </p>
       )}
 
-      <h2 style={{ marginTop: 20 }}>Moje rezerwacje</h2>
+      <div className="section-header">
+        <div>
+          <h2>Moje rezerwacje</h2>
+          <p className="section-subtitle">Twoje aktywne i zakończone rezerwacje.</p>
+        </div>
+        <span className="status-pill">{reservations.length} łącznie</span>
+      </div>
 
       {reservations.length === 0 && <p>Brak rezerwacji</p>}
 
-      {reservations.map(r => (
-        <div key={r.id} style={{ border: "1px solid #ccc", padding: 10, marginBottom: 10 }}>
-          <p><b>ID:</b> {r.id}</p>
-          <p><b>Od:</b> {r.startDate}</p>
-          <p><b>Do:</b> {r.endDate}</p>
-          <p><b>Odbiór:</b> {r.pickUpLocation}</p>
-          <p><b>Zwrot:</b> {r.dropOffLocation}</p>
-          <p><b>Cena:</b> {r.totalPrice} zł</p>
-          <p><b>Utworzono:</b> {r.createdAt}</p>
-        </div>
-      ))}
+      <div className="reservation-grid">
+        {reservations.map(r => (
+          <div key={r.id} className="reservation-card">
+            <div className="reservation-card__header">
+              <div>
+                <div className="reservation-card__title">{r.brand} {r.model}</div>
+                <div className="reservation-card__subtitle">Rejestracja: {r.registrationNumber}</div>
+              </div>
+              <span className="reservation-card__badge">ID #{r.id}</span>
+            </div>
+
+            <div className="reservation-card__meta">
+              <div>
+                <span className="meta-label">Okres</span>
+                <span className="meta-value">{r.startDate} → {r.endDate}</span>
+              </div>
+              <div>
+                <span className="meta-label">Odbiór</span>
+                <span className="meta-value">{r.pickUpLocation}</span>
+              </div>
+              <div>
+                <span className="meta-label">Zwrot</span>
+                <span className="meta-value">{r.dropOffLocation}</span>
+              </div>
+              <div>
+                <span className="meta-label">Cena</span>
+                <span className="meta-value">{r.totalPrice} zł</span>
+              </div>
+              <div>
+                <span className="meta-label">Utworzono</span>
+                <span className="meta-value">{r.createdAt}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

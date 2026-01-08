@@ -21,10 +21,16 @@ export async function apiPost(path, body) {
     body: JSON.stringify(body),
   });
 
-  const data = await res.json().catch(() => ({}));
+  const text = await res.text();
+  let data = {};
+  try {
+    data = text ? JSON.parse(text) : {};
+  } catch {
+    data = {};
+  }
 
   if (!res.ok) {
-    throw new Error(data.error || "Błąd");
+    throw new Error(data.error || data.message || text || "Błąd");
   }
 
   return data;
@@ -36,10 +42,16 @@ export async function apiDelete(path) {
     credentials: "include",
   });
 
-  const data = await res.json().catch(() => ({}));
+  const text = await res.text();
+  let data = {};
+  try {
+    data = text ? JSON.parse(text) : {};
+  } catch {
+    data = {};
+  }
 
   if (!res.ok) {
-    throw new Error(data.error || "Błąd");
+    throw new Error(data.error || data.message || text || "Błąd");
   }
 
   return data;
