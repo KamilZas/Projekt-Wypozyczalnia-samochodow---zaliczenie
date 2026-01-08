@@ -1,0 +1,65 @@
+* {
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #f4f6f9;
+  color: #222;
+}
+
+.app {
+  max-width: 1000px;
+  margin: auto;
+  padding: 1.5rem;
+}
+
+.card {
+  background: white;
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+  margin-bottom: 1rem;
+}
+
+h1, h2 {
+  margin: 0 0 1rem 0;
+}
+
+nav {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+a {
+  text-decoration: none;
+  color: #2563eb;
+  font-weight: 600;
+}
+
+button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: .6rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #1e4fd8;
+}
+
+input {
+  width: 100%;
+  padding: .6rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.form {
+  display: grid;
+  gap: .7rem;
+}
