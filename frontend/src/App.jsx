@@ -31,20 +31,22 @@ function App() {
   const isAdmin = user?.roles?.includes("ROLE_ADMIN")
 
   return (
-    <div className='app' style={{ maxWidth: 900, margin: '0 auto', padding: '1rem' }}>
-      <header className='card' style={{ marginBottom: '1rem' }}>
-        <h1>Wypożyczalnia samochodów</h1>
+    <div className='app app-shell'>
+      <header className='card topbar'>
+        <div className='brand'>
+          <div className='brand__title'>Wypożyczalnia samochodów</div>
+          <div className='brand__subtitle'>Nowoczesna flota, przejrzyste rezerwacje i pełna kontrola.</div>
+        </div>
 
         {user && (
-          <nav>
-            <Link to="/">Samochody</Link> |{" "}
-            <Link to="/reservations">Moje rezerwacje</Link> |{" "}
+          <nav className='nav-links'>
+            <Link to="/">Samochody</Link>
+            <Link to="/reservations">Moje rezerwacje</Link>
             {isAdmin && (
-              <>
-                <Link to="/admin/reservations">Panel admina</Link> |{" "}
-              </>
+              <Link to="/admin/reservations">Panel admina</Link>
             )}
             <button
+              className="btn-ghost"
               onClick={() => {
                 fetch("http://localhost:8000/api/logout", {
                   method: "POST",
