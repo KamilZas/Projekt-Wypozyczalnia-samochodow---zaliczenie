@@ -27,7 +27,10 @@ class ReservationController extends AbstractController
             empty($data['startDate']) ||
             empty($data['endDate']) ||
             empty($data['pickUpLocation']) ||
-            empty($data['dropOffLocation'])
+            empty($data['dropOffLocation']) ||
+            empty($data['firstName']) ||
+            empty($data['lastName']) ||
+            empty($data['phoneNumber'])
         ) {
             return $this->json(['error' => 'Brak wymaganych danych'], 400);
         }
@@ -74,6 +77,9 @@ class ReservationController extends AbstractController
         $reservation->setEndDate($endDate);
         $reservation->setPickUpLocation($data['pickUpLocation']);
         $reservation->setDropOffLocation($data['dropOffLocation']);
+        $reservation->setFirstName($data['firstName']);
+        $reservation->setLastName($data['lastName']);
+        $reservation->setPhoneNumber($data['phoneNumber']);
         $reservation->setTotalPrice($totalPrice);
         $reservation->setStatus('pending');
         $reservation->setCreatedAt(new \DateTimeImmutable());
