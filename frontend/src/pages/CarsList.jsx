@@ -75,10 +75,15 @@ export default function CarsList({ user }) {
   if (error) return <p>{error}</p>
 
   return (
-    <div>
+    <div className="cars-list">
       <h2>Dostępne samochody</h2>
 
-      <table border="1" cellPadding="6" style={{ borderCollapse: 'collapse', width: '100%' }}>
+     <table
+        className="cars-table"
+        border="1"
+        cellPadding="6"
+        style={{ borderCollapse: 'collapse', width: '100%' }}
+      >
         <thead>
           <tr>
             <th>Marka</th>
@@ -132,7 +137,11 @@ export default function CarsList({ user }) {
 
           <h3>Rezerwacja: {selectedCar.brand} {selectedCar.model}</h3>
 
-          <form onSubmit={submitReservation} style={{ display: 'grid', gap: '0.5rem', maxWidth: 420 }}>
+          <form
+            className="reservation-form"
+            onSubmit={submitReservation}
+            style={{ display: 'grid', gap: '0.5rem', maxWidth: 420 }}
+          >
             <label>
               Data od:
               <input type="text" value={startDate} placeholder="Wybierz z kalendarza" readOnly />
