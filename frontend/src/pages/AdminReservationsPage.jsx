@@ -47,7 +47,7 @@ export default function AdminReservationsPage() {
   }
 
   return (
-    <div className="section">
+      <div className="section section--dark">
       <div className="section-header">
         <div>
           <h2>Aktualnie wypożyczone auta</h2>

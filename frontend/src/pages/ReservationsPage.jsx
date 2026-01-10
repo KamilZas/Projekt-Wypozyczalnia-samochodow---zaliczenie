@@ -47,7 +47,7 @@ export default function ReservationsPage() {
   if (error) return <p style={{ color: "red" }}>{error}</p>;
 
   return (
-    <div className="section">
+ <div className="section section--dark">
       {selectedDate && (
         <p style={{ marginTop: 10 }}>
           Wybrana data: <b>{selectedDate}</b>
